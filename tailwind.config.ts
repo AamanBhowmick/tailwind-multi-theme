@@ -1,7 +1,5 @@
 import type { Config } from "tailwindcss";
-const theme = require('./app/theme.tsx')
-
-const plugin = require('tailwindcss/plugin')
+const theme = require("./app/theme.tsx");
 
 export default {
   content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
@@ -29,15 +27,5 @@ export default {
   //     },
   //   },
   // },
-  plugins: [
-    plugin(
-      function({addBase}: {addBase: any}) {
-        addBase({
-          body: {
-            textTransform: 'uppercase',
-          }
-        })
-      }
-    )
-  ],
+  plugins: [],
 } satisfies Config;
