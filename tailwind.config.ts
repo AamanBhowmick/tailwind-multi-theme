@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import theme from "~/theme";
+const theme = require('./app/theme.tsx')
 
 export default {
   content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
