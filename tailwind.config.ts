@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-const theme = require('./app/theme.tsx')
+const theme = require("./app/theme.tsx");
 
 export default {
   content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
@@ -9,18 +9,8 @@ export default {
         base: theme.base,
         rainforest: theme.rainforest,
         candy: theme.candy,
-        primary: {
-          50: 'var(--primary-50)',
-          100: 'var(--primary-100)',
-          200: 'var(--primary-200)',
-          300: 'var(--primary-300)',
-          400: 'var(--primary-400)',
-          500: 'var(--primary-500)',
-          600: 'var(--primary-600)',
-          700: 'var(--primary-700)',
-          800: 'var(--primary-800)',
-          900: 'var(--primary-900)',
-        }
+        // 2nd: Define it in config file
+        // primary: {},
       },
     },
   },
