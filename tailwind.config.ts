@@ -3,6 +3,9 @@ const theme = require('./app/theme.tsx')
 
 export default {
   content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
+
+  // Using https://tailwindcss.com/docs/plugins#css-in-js-syntax
+
   theme: {
     extend: {
       colors: {
