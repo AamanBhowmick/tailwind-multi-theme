@@ -1,4 +1,4 @@
-const theme = {
+module.exports = {
   base: {
     50: "#eef2ff",
     100: "#e0e7ff",
@@ -36,5 +36,3 @@ const theme = {
     900: "#590028",
   },
 };
-
-export default theme;
