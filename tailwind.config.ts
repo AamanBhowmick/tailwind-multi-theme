@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+
 const multiThemePlugin = require("./app/multi-theme-plugin.tsx");
 
 export default {
@@ -9,9 +10,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        base: theme.base,
-        rainforest: theme.rainforest,
-        candy: theme.candy,
         primary: {
           50:  'rgb(var(--primary-50) / <alpha-value>)',
           100: 'rgb(var(--primary-100) / <alpha-value>)',
