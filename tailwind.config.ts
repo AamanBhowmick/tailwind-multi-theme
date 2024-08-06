@@ -31,6 +31,7 @@ export default {
   // },
   plugins: [
     plugin(function ({ addBase }: { addBase: any }) {
+      // Replacing the body of addBase with the variables.
       addBase({
         body: {
           textTransform: "uppercase",
