@@ -2,7 +2,7 @@ const plugin = require('tailwindcss/plugin')
 const hexRgb = require('hex-rgb')
 
 // Helpers function
-function getRgbChannels(hex) {
+function getRgbChannels(hex: any) {
   const { red, green, blue } = hexRgb(hex)
   return `${red} ${green} ${blue}`
 }
@@ -46,7 +46,7 @@ const themes = {
   },
 }
 
-module.exports = plugin(function ({ addBase }) {
+module.exports = plugin(function ({ addBase }: any) {
   addBase({
     ':root': {
       '--primary-50': getRgbChannels(themes.base['50']),

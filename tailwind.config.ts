@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-const multiThemePlugin = require("./app/multi-theme-plugin.tsx");
+const multiThemePlugin = require("./app/multi-theme-plugin.ts");
 
 export default {
   content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
