@@ -7,6 +7,9 @@ export default {
 
   // Using https://tailwindcss.com/docs/plugins#css-in-js-syntax
 
+
+  // Step 9: Getting rid of theme here and move everything to plugins
+
   theme: {
     extend: {
       colors: {
