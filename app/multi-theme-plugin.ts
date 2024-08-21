@@ -60,6 +60,15 @@ module.exports = plugin(function ({ addBase }: any) {
       '--primary-800': getRgbChannels(themes.base['800']),
       '--primary-900': getRgbChannels(themes.base['900']),
     },
+
+
+    // Generate the three 'data-theme' CSSblocks by iterating over the 'themes' object
+
+    // Hints:
+    // Use Multiple 'addBase()'
+    // Use Object.enteries() for iterating over keys
+
+
     '[data-theme="base"]': {
       '--primary-50': getRgbChannels(themes.base['50']),
       '--primary-100': getRgbChannels(themes.base['100']),
