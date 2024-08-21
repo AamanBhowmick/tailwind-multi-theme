@@ -4,7 +4,7 @@
 
 /* Moving the CSS variables declaration into the plugin */
 
-@layer base {
+/* @layer base {
     :root {
         --primary-50: 238 242 255;
         --primary-100: 224 231 255;
@@ -56,4 +56,4 @@
         --primary-800: 132 0 61;
         --primary-900: 89 0 40;
     }
-}
+} */
