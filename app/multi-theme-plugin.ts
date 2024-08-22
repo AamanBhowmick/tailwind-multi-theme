@@ -1,6 +1,6 @@
 const plugin = require('tailwindcss/plugin')
 const hexRgb = require('hex-rgb')
-const themes = require("./theme.json");
+// const themes = require("./theme.json");
 
 // Helpers function
 function getRgbChannels(hex: any) {
@@ -14,7 +14,7 @@ function getRgbChannels(hex: any) {
 // --primary-50: getRgbChannels('#eef266')
 // --secondary-some-nested-color: getRgbChannels('#0099aa')
 
-function getCssVariableDeclaration(input: any, path=[], output = {}) {
+function getCssVariableDeclaration(input: any, path=[], output = {}):any {
   Object.entries(input).forEach(([key, value]: any) => {
     const newPath = path.concat(key);
     if (typeof value !== 'string') {
@@ -67,7 +67,7 @@ function getCssVariableDeclaration(input: any, path=[], output = {}) {
 // }
 
 
-function getColorUtilitiesWithCssVariableReference(input: any, path = []) {
+function getColorUtilitiesWithCssVariableReference(input: any, path = []):any {
   // It will replace the hard coded obj below
   return Object.fromEntries(
     Object.entries(input).map(([key, value]: any) => {
@@ -81,28 +81,47 @@ function getColorUtilitiesWithCssVariableReference(input: any, path = []) {
 }
 
 
-module.exports = plugin(function ({ addBase }: any) {
-  
-  addBase({
-    ':root': getCssVariableDeclaration(Object.values(themes)[0])
-  })
-    // Generate the three 'data-theme' CSSblocks by iterating over the 'themes' object
-
-    // Hints:
-    // Use Multiple 'addBase()'
-    // Use Object.entries() for iterating over keys
-
-  Object.entries(themes).forEach(([key, value]) => {
-    addBase({
-      [`[data-theme=${key}]`]: getCssVariableDeclaration(value),
-    })
-  })
-},
-{
-  theme: {
-    extend: {
-      colors: getColorUtilitiesWithCssVariableReference(themes.base),
-    },
-  },
+// Check for valid color themes input
+function checkForValidColorThemesInput(input: any): any {
+  const isValid: boolean = typeof input === "object" && Object.keys(input).some(key => typeof input[key] === "object");
+  if(!isValid) {
+    throw new Error ("The Multi-theme plugin expects a 'colorThemes' option passed to it, which contains atleast one theme object");
+  }
 }
+
+
+module.exports = plugin.withOptions(
+
+  function(options: any) {
+
+    const { colorThemes } = options
+    checkForValidColorThemesInput(colorThemes);
+    
+    return function ({ addBase }: any) {
+    
+      addBase({
+        ':root': getCssVariableDeclaration(Object.values(colorThemes)[0])
+      })
+    
+      Object.entries(colorThemes).forEach(([key, value]) => {
+        addBase({
+          [`[data-theme=${key}]`]: getCssVariableDeclaration(value),
+        })
+      })
+    }
+  },
+
+  function(options: any) {
+    const {colorThemes} = options;
+    checkForValidColorThemesInput(colorThemes);
+    return {
+      theme: {
+        extend: {
+          colors: getColorUtilitiesWithCssVariableReference(colorThemes.base),
+        },
+      },
+    }
+
+  }
+  
 )
