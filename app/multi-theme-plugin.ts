@@ -14,7 +14,15 @@ function getRgbChannels(hex: any) {
 // --primary-50: getRgbChannels('#eef266')
 // --secondary-some-nested-color: getRgbChannels('#0099aa')
 
-function getCssVariableDeclaration(input, output = {}) {
+function getCssVariableDeclaration(input: any, path=[], output = {}) {
+  Object.entries(input).forEach(([key, value]) => {
+    const newPath = path.concat(key);
+    if (typeof value !== 'string') {
+      getCssVariableDeclaration(value, newPath, output)
+    } else {
+      output[`--${newPath.join('-')}`] = getRgbChannels(value)
+    }
+  })
   return output;
 }
 
@@ -58,41 +66,26 @@ function getCssVariableDeclaration(input, output = {}) {
 //   },
 // }
 
-module.exports = plugin(function ({ addBase }) {
+
+function getColorUtilitiesWithCssVariableReference(input: any) {
+  // It will replace the hard coded obj below
+}
+
+
+module.exports = plugin(function ({ addBase }: any) {
+  
   addBase({
-    ':root': {
-      '--primary-50': getRgbChannels(themes.base.primary['50']),
-      '--primary-100': getRgbChannels(themes.base.primary['100']),
-      '--primary-200': getRgbChannels(themes.base.primary['200']),
-      '--primary-300': getRgbChannels(themes.base.primary['300']),
-      '--primary-400': getRgbChannels(themes.base.primary['400']),
-      '--primary-500': getRgbChannels(themes.base.primary['500']),
-      '--primary-600': getRgbChannels(themes.base.primary['600']),
-      '--primary-700': getRgbChannels(themes.base.primary['700']),
-      '--primary-800': getRgbChannels(themes.base.primary['800']),
-      '--primary-900': getRgbChannels(themes.base.primary['900']),
-    },
+    ':root': getCssVariableDeclaration(Object.values(themes)[0])
   })
     // Generate the three 'data-theme' CSSblocks by iterating over the 'themes' object
 
     // Hints:
     // Use Multiple 'addBase()'
-    // Use Object.enteries() for iterating over keys
+    // Use Object.entries() for iterating over keys
 
   Object.entries(themes).forEach(([key, value]) => {
     addBase({
-      [`[data-theme=${key}]`]: {
-        '--primary-50': getRgbChannels(value.primary['50']),
-        '--primary-100': getRgbChannels(value.primary['100']),
-        '--primary-200': getRgbChannels(value.primary['200']),
-        '--primary-300': getRgbChannels(value.primary['300']),
-        '--primary-400': getRgbChannels(value.primary['400']),
-        '--primary-500': getRgbChannels(value.primary['500']),
-        '--primary-600': getRgbChannels(value.primary['600']),
-        '--primary-700': getRgbChannels(value.primary['700']),
-        '--primary-800': getRgbChannels(value.primary['800']),
-        '--primary-900': getRgbChannels(value.primary['900']),
-      },
+      [`[data-theme=${key}]`]: getCssVariableDeclaration(value),
     })
   })
 },
